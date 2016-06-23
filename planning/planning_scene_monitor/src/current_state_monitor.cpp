@@ -201,7 +201,8 @@ bool planning_scene_monitor::CurrentStateMonitor::haveCompleteState(const ros::D
   bool result = true;
   const std::vector<std::string> &dof = robot_model_->getVariableNames();
   ros::Time now = ros::Time::now();
-  ros::Time old = now - age;
+  double duration = now.toSec() - age.toSec();
+  ros::Time old(duration);
   boost::mutex::scoped_lock slock(state_update_lock_);
   for (std::size_t i = 0 ; i < dof.size() ; ++i)
   {
@@ -230,7 +231,8 @@ bool planning_scene_monitor::CurrentStateMonitor::haveCompleteState(const ros::D
   bool result = true;
   const std::vector<std::string> &dof = robot_model_->getVariableNames();
   ros::Time now = ros::Time::now();
-  ros::Time old = now - age;
+  double duration = now.toSec() - age.toSec();
+  ros::Time old(duration);
   boost::mutex::scoped_lock slock(state_update_lock_);
   for (std::size_t i = 0 ; i < dof.size() ; ++i)
   {

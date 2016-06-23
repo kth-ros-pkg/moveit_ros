@@ -1117,7 +1117,8 @@ void planning_scene_monitor::PlanningSceneMonitor::updateSceneWithCurrentState()
   if (current_state_monitor_)
   {
     std::vector<std::string> missing;
-    if (!current_state_monitor_->haveCompleteState(missing) && (ros::Time::now() - current_state_monitor_->getMonitorStartTime()).toSec() > 1.0)
+    double timeDiff = ros::Time::now().toSec() - (current_state_monitor_->getMonitorStartTime()).toSec();
+    if (!current_state_monitor_->haveCompleteState(missing) && timeDiff > 1.0)
     {
       std::string missing_str = boost::algorithm::join(missing, ", ");
       ROS_WARN_THROTTLE(1, "The complete state of the robot is not yet known.  Missing %s", missing_str.c_str());
